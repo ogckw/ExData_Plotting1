@@ -1,0 +1,15 @@
+install.packages("data.table")
+library(data.table)
+install.packages("lubridate")
+library(lubridate)
+
+aa<-fread("household_power_consumption.txt",nrows = 2880, skip="1/2/2007")
+colnames(aa) <-c("Date","Time","Global_active_power","Global_reactive_power","Voltage","Global_intensity","Sub_metering_1","Sub_metering_2","Sub_metering_3")
+aa$Date<-as.Date(aa$Date,format="%d/%m/%Y")
+aa<-within(aa, Time <- paste(Date, Time, sep=" "))
+aa <- transform(aa, Time = as.POSIXct(Time))
+
+png(file = "plot2.png",width = 480, height = 480)
+Sys.setlocale("LC_TIME", "English")
+plot(aa$Time,aa$Global_active_power,type = "l",ylab= "Global Active Power (kilowatts)" ,xlab="")
+dev.off()
