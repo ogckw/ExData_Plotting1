@@ -1,6 +1,6 @@
 install.packages("data.table")
 library(data.table)
-aa<-fread("household_power_consumption.txt",nrows = 2880, skip="1/2/2007")
+aa<-fread("household_power_consumption.txt",nrows = 2880, skip="1/2/2007",na.strings = "?")
 colnames(aa) <-c("Date","Time","Global_active_power","Global_reactive_power","Voltage","Global_intensity","Sub_metering_1","Sub_metering_2","Sub_metering_3")
 aa$Date<-as.Date(aa$Date,format="%d/%m/%Y")
 aa<-within(aa, Time <- paste(Date, Time, sep=" "))
