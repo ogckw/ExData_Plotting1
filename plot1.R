@@ -6,6 +6,6 @@ aa$Date<-as.Date(aa$Date,format="%d/%m/%Y")
 aa<-within(aa, Time <- paste(Date, Time, sep=" "))
 aa <- transform(aa, Time = as.POSIXct(Time))
 
-png(file = "plot1.png",width = 480, height = 480, res = 120)
+png(file = "plot1.png",width = 480, height = 480)
 hist(aa$Global_active_power,xlab="Global Active Power (kilowatts)",main ="Global Active Power",col = "red")
 dev.off()
