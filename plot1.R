@@ -1,0 +1,11 @@
+install.packages("data.table")
+library(data.table)
+aa<-fread("household_power_consumption.txt",nrows = 2880, skip="1/2/2007")
+colnames(aa) <-c("Date","Time","Global_active_power","Global_reactive_power","Voltage","Global_intensity","Sub_metering_1","Sub_metering_2","Sub_metering_3")
+aa$Date<-as.Date(aa$Date,format="%d/%m/%Y")
+aa<-within(aa, Time <- paste(Date, Time, sep=" "))
+aa <- transform(aa, Time = as.POSIXct(Time))
+
+png(file = "plot1.png",width = 480, height = 480, res = 120)
+hist(aa$Global_active_power,xlab="Global Active Power (kilowatts)",main ="Global Active Power",col = "red")
+dev.off()
